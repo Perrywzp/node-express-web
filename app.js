@@ -8,14 +8,8 @@ var express = require('express');
 var app = express();
 app.set('port', process.env.PORT || 3000);
 
-var fortunes = [
-  "Some people make your laugh a little louder, your smile a little brighter and your " +
-  "life a little better. Try to be one of those people.",
-  "Do not fear what you don`t know.",
-  "You will have a pleasant surprise",
-  "Whenever possible, keep it simple",
-  "Rivers need springs"
-];
+// lib
+var fortune = require('./lib/fortune.js');
 
 
 // 这里使用了handlebars ，并将解析的扩展名改为了.hbs
@@ -45,10 +39,7 @@ app.get('/', function (req, res) {
 });
 
 app.get('/about', function (req, res) {
-
-  var randomFortune = fortunes[Math.floor(Math.random() * fortunes.length)];
-
-  res.render('about', {fortune: randomFortune});
+  res.render('about', {fortune: fortune.getFortune()});
 });
 
 
